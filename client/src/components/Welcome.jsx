@@ -5,6 +5,10 @@ import { SiEthereum } from 'react-icons/si';
 import { Loader } from './';
 const companyCommonStyles = 'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white';
 
+const Input = (props) => (
+  <input className='my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism' step='0.0001' {...props} />
+);
+
 const Welcome = () => {
   const connectWallet = () => { }
   
@@ -54,6 +58,12 @@ const Welcome = () => {
           </div>
 
           {/* Form */}
+          <div className='p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism'>
+            <Input placeholder='Address To' name='addressTo' type='text' onChange={() => {}} />
+            <Input placeholder='Amount (ETH)' name='amount' type='number' onChange={() => {}} />
+            <Input placeholder='Keyword (Gif)' name='keyword' type='text' onChange={() => {}} />
+            <Input placeholder='Enter Message' name='message' type='text' onChange={() => {}} />
+          </div>
         </div>
       </div>
     </div>
