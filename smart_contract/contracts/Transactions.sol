@@ -14,4 +14,6 @@ contract Transactions {
     uint256 timestamp;
     string keyword;
   }
+
+  TransferStruct[] transactions;
 }
