@@ -25,6 +25,7 @@ const Welcome = () => {
             <p className='text-white text-base font-semibold'>Connect Wallet</p>
           </button>
 
+          {/* Features */}
           <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>Reliability</div>
             <div className={companyCommonStyles}>Security</div>
@@ -36,6 +37,7 @@ const Welcome = () => {
         </div>
 
         <div className='flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10'>
+          {/* Card */}
           <div className='p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism'>
             <div className='flex justify-between flex-col w-full h-full'>
               <div className='flex justify-between items-start'>
@@ -44,12 +46,14 @@ const Welcome = () => {
                 </div>
                 <BsInfoCircle fontSize={17} color='#fff' />
               </div>
-            </div>
-            <div>
-              <p className='text-white font-light text-sm'>0xasdaf</p>
-              <p className='text-white font-semibold text-lg mt-1'>Ethereum</p>
+              <div>
+                <p className='text-white font-light text-sm'>0xasdaf (address)</p>
+                <p className='text-white font-semibold text-lg mt-1'>Ethereum</p>
+              </div>
             </div>
           </div>
+
+          {/* Form */}
         </div>
       </div>
     </div>
