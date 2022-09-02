@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
 import { contractABI, contractAddress } from '../utils/constants';
 
-export const TransactionContext = React.createContext();
+export const TransactionContext = createContext();
 
 const { ethereum } = window;
 
@@ -16,15 +16,31 @@ const getEthereumContract = () => {
 };
 
 export const TransactionProvider = ({ children }) => {
+  const [connectedAccount, setConnectedAccount] = useState('');
+
   const checkIfWalletIsConnected = async () => {
     if (!ethereum) return alert('Please install MetaMask.');
     const accounts = await ethereum.request({ method: 'eth_accounts' });
-    console.log(accounts);
+    if (accounts.length) setConnectedAccount(accounts[0]);
+    // console.log(accounts);
+  };
+
+  const connectWallet = async () => {
+    try {
+      if (!ethereum) return alert('Please install MetaMask.');
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      setConnectedAccount(accounts[0]);
+    } catch (error) {
+      console.error(error);
+      throw new Error('No ethereum object.');
+    }
   };
 
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);
 
-  return <TransactionContext.Provider value={{ value: 'test' }}>{children}</TransactionContext.Provider>;
+  return <TransactionContext.Provider value={{ connectWallet }}>{children}</TransactionContext.Provider>;
 };
+
+export const useTransactionContext = () => useContext(TransactionContext);
