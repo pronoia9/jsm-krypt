@@ -13,9 +13,14 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-  const { currentAccount, connectWallet, formData, setFormData, handleChange } = useTransactionContext();
+  const { currentAccount, connectWallet, formData, handleChange, sendTransaction } = useTransactionContext();
   
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { addressTo, amount, keyword, message } = formData;
+    if (!addressTo || !amount || !keyword || !message) return;
+    sendTransaction();
+  };
 
   return (
     <div className='flex w-full justify-center items-center'>
