@@ -11,8 +11,8 @@ const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
-
-  console.log({ provider, signer, transactionContract });
+  // console.log({ provider, signer, transactionContract });
+  return transactionContract;
 };
 
 export const TransactionProvider = ({ children }) => {
@@ -54,6 +54,23 @@ export const TransactionProvider = ({ children }) => {
     try {
       if (!ethereum) return alert('Please install MetaMask.');
       // get the data from form
+      const { addressTo, amount, keyword, message } = formData;
+      // get ethereum contract
+      const transactionContract = getEthereumContract();
+      const parsedAmount = ethers.utils.parseEther(amount); // parse amount to gwei hexadecimal
+      await ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: currentAccount,
+            to: addressTo,
+            gas: '0x5208' /* 21000 GWEI, 0.00021 ether */,
+            value: parsedAmount._hex,
+          },
+        ],
+      });
+      // store transaction
+      const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
     } catch (error) {
       console.error(error);
       throw new Error('Error sending transaction.');
@@ -65,7 +82,8 @@ export const TransactionProvider = ({ children }) => {
   }, []);
 
   return (
-    <TransactionContext.Provider value={{ currentAccount, formData, setFormData, connectWallet, handleChange }}>
+    <TransactionContext.Provider
+      value={{ currentAccount, formData, setFormData, connectWallet, handleChange, sendTransaction }}>
       {children}
     </TransactionContext.Provider>
   );
