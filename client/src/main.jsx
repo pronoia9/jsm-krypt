@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import './index.css';
+import App from './App';
+import { TransactionProvider } from './contexts/TransactionContext';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <TransactionProvider>
+    <App />
+  </TransactionProvider>,
+  document.getElementById('root')
+);
