@@ -49,7 +49,7 @@ export const TransactionProvider = ({ children }) => {
     checkIfWalletIsConnected();
   }, []);
 
-  return <TransactionContext.Provider value={{ connectWallet }}>{children}</TransactionContext.Provider>;
+  return <TransactionContext.Provider value={{ currentAccount, connectWallet }}>{children}</TransactionContext.Provider>;
 };
 
 export const useTransactionContext = () => useContext(TransactionContext);
