@@ -17,7 +17,7 @@ const Input = (props) => (
 );
 
 const Welcome = () => {
-  const { connectWallet } = useTransactionContext();
+  const { currentAccount, connectWallet } = useTransactionContext();
   
   const handleSubmit = () => {};
 
@@ -31,12 +31,14 @@ const Welcome = () => {
           <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>
             Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
           </p>
-          <button
-            type='button'
-            onClick={connectWallet}
-            className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-            <p className='text-white text-base font-semibold'>Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type='button'
+              onClick={connectWallet}
+              className='flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]'>
+              <p className='text-white text-base font-semibold'>Connect Wallet</p>
+            </button>
+          )}
 
           {/* Features */}
           <div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
@@ -60,7 +62,7 @@ const Welcome = () => {
                 <BsInfoCircle fontSize={17} color='#fff' />
               </div>
               <div>
-                <p className='text-white font-light text-sm'>0xasdaf (address)</p>
+                <p className='text-white font-light text-sm'>{currentAccount.slice(0, 7)}...</p>
                 <p className='text-white font-semibold text-lg mt-1'>Ethereum</p>
               </div>
             </div>
