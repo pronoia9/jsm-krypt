@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 
 import { contractABI, contractAddress } from '../utils/constants';
 
-export const TransactionContext = createContext();
+export const TransactionContext = createContext(null);
 
 const { ethereum } = window;
 
@@ -21,8 +21,11 @@ export const TransactionProvider = ({ children }) => {
   const checkIfWalletIsConnected = async () => {
     if (!ethereum) return alert('Please install MetaMask.');
     const accounts = await ethereum.request({ method: 'eth_accounts' });
-    if (accounts.length) setConnectedAccount(accounts[0]);
     // console.log(accounts);
+    if (accounts.length) {
+      setConnectedAccount(accounts[0]);
+      // getAllTransactions();
+    }
   };
 
   const connectWallet = async () => {
