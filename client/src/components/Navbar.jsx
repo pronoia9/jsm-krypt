@@ -3,9 +3,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 import logo from '../../images/logo.png';
 import { useState } from 'react';
 
+import { useTransactionContext } from '../contexts/TransactionContext';
+
 const NavbarItem = ({ title, classProps }) => <li className={`mx-4 cursor-pointer ${classProps}`}>{title}</li>;
 
 const Navbar = () => {
+  const { currentAccount } = useTransactionContext();
   const navbarLinks = ['Market', 'Exchange', 'Tutorials', 'Wallets'];
   const [toggleMenu, setToggleMenu] = useState(false);
   const iconStyles = {
@@ -23,7 +26,16 @@ const Navbar = () => {
         {navbarLinks.map((item, i) => (
           <NavbarItem key={item + i} title={item} classProps='' />
         ))}
-        <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>Login</li>
+        {!currentAccount && (
+          <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>
+            <a
+              href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en'
+              target='_blank'
+              rel='noreferrer'>
+              Sign Up
+            </a>
+          </li>
+        )}
       </ul>
       {/* Mobile menu */}
       <div className='flex relative'>
