@@ -1,5 +1,6 @@
 import { useTransactionContext } from '../contexts/TransactionContext';
 
+import dummyData from '../utils/dummyData';
 import { sliceAddress } from '../utils/sliceAddress';
 import useFetch from '../hooks/useFetch';
 
@@ -51,7 +52,7 @@ const Transactions = () => {
         )}
 
         <div className='flex flex-wrap justify-center items-center mt-10'>
-          {transactions.reverse().map((item, i) => (
+          {dummyData.concat(transactions || []).reverse().slice(0, 6).map((item, i) => (
             <TransactionsCard key={i} {...item} />
           ))}
         </div>
