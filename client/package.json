@@ -1,7 +1,10 @@
 {
   "name": "wave-app",
   "version": "0.0.0",
+  "homepage": "https://pronoia9.github.io/jsm-krypt/",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
